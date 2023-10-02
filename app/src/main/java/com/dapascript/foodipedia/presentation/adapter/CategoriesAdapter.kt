@@ -65,7 +65,7 @@ class CategoriesAdapter(
 
     companion object : DiffUtil.ItemCallback<CategoriesItem>() {
         override fun areItemsTheSame(oldItem: CategoriesItem, newItem: CategoriesItem): Boolean {
-            return oldItem.idCategory == newItem.idCategory
+            return oldItem.strCategory == newItem.strCategory
         }
 
         override fun areContentsTheSame(oldItem: CategoriesItem, newItem: CategoriesItem): Boolean {

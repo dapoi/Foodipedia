@@ -1,11 +1,13 @@
-package com.dapascript.foodipedia.presentation.ui.category
+package com.dapascript.foodipedia.presentation.ui.list
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dapascript.foodipedia.databinding.FragmentCategoryFoodBinding
 import com.dapascript.foodipedia.presentation.adapter.CategoriesAdapter
@@ -30,7 +32,14 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding>(
     }
 
     private fun initAdapter() {
-        categoriesAdapter = CategoriesAdapter { }
+        categoriesAdapter = CategoriesAdapter(
+            onClick = {
+                val name = it.strCategory.toString()
+                findNavController().navigate(
+                    CategoryFoodFragmentDirections.actionCategoryFoodFragmentToFoodFragment(name)
+                )
+            }
+        )
         binding.rvCategory.apply {
             adapter = categoriesAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -53,8 +62,7 @@ class CategoryFoodFragment : BaseFragment<FragmentCategoryFoodBinding>(
     }
 
     private fun initSearch() {
-        binding.svSearch.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        binding.svSearch.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val imm =
                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

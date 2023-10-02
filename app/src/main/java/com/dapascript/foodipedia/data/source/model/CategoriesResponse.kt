@@ -10,9 +10,6 @@ data class CategoriesResponse(
 
 data class CategoriesItem(
 
-    @Json(name = "idCategory")
-    val idCategory: String? = null,
-
     @Json(name = "strCategory")
     val strCategory: String? = null,
 

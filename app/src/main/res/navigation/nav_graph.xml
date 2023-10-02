@@ -6,7 +6,34 @@
     app:startDestination="@id/categoryFoodFragment">
     <fragment
         android:id="@+id/categoryFoodFragment"
-        android:name="com.dapascript.foodipedia.presentation.ui.category.CategoryFoodFragment"
+        android:name="com.dapascript.foodipedia.presentation.ui.list.CategoryFoodFragment"
         android:label="fragment_category_food"
-        tools:layout="@layout/fragment_category_food" />
+        tools:layout="@layout/fragment_category_food">
+        <action
+            android:id="@+id/action_categoryFoodFragment_to_foodFragment"
+            app:destination="@id/foodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodFragment"
+        android:name="com.dapascript.foodipedia.presentation.ui.list.FoodFragment"
+        android:label="fragment_food"
+        tools:layout="@layout/fragment_food">
+        <action
+            android:id="@+id/action_foodFragment_to_detailFoodFragment"
+            app:destination="@id/detailFoodFragment" />
+        <argument
+            android:name="nameFood"
+            android:defaultValue=''
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFoodFragment"
+        android:name="com.dapascript.foodipedia.presentation.ui.detail.DetailFoodFragment"
+        android:label="fragment_detail_food"
+        tools:layout="@layout/fragment_detail_food">
+        <argument
+            android:name="idDetail"
+            android:defaultValue=''
+            app:argType="string" />
+    </fragment>
 </navigation>
