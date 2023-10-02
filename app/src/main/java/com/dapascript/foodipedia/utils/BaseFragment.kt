@@ -1,4 +1,4 @@
-package com.dapascript.foodipedia.presentation.ui
+package com.dapascript.foodipedia.utils
 
 import android.os.Bundle
 import android.view.LayoutInflater
