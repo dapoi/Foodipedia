@@ -29,7 +29,15 @@ class FoodFragment : BaseFragment<FragmentFoodBinding>(FragmentFoodBinding::infl
     }
 
     private fun initAdapter() {
-        foodAdapter = FoodAdapter()
+        foodAdapter = FoodAdapter(
+            onClick = {
+                val id = it.idMeal
+                findNavController().navigate(
+                    FoodFragmentDirections.actionFoodFragmentToDetailFoodFragment(id.toString())
+                )
+            }
+        )
+
         binding.rvFood.apply {
             adapter = foodAdapter
             layoutManager = LinearLayoutManager(requireContext())

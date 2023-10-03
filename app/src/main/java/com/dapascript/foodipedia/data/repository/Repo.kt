@@ -1,6 +1,7 @@
 package com.dapascript.foodipedia.data.repository
 
 import com.dapascript.foodipedia.data.source.model.CategoriesItem
+import com.dapascript.foodipedia.data.source.model.DetailFood
 import com.dapascript.foodipedia.data.source.model.ListFood
 import com.dapascript.foodipedia.data.source.network.ApiService
 import com.dapascript.foodipedia.utils.Resource
@@ -40,6 +41,21 @@ class FoodRepositoryImpl @Inject constructor(
             emit(Resource.Error(e.message.toString()))
         }
     }.flowOn(ioDispatcher)
+
+    override fun getMealsDetailById(id: String): Flow<Resource<List<DetailFood?>>> = flow {
+        emit(Resource.Loading)
+
+        try {
+            val response = apiService.getMealById(id).meals
+            if (response.isNullOrEmpty()) {
+                emit(Resource.Error("No data found"))
+            } else {
+                emit(Resource.Success(response))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.message.toString()))
+        }
+    }.flowOn(ioDispatcher)
 }
 
 interface FoodRepository {
@@ -47,4 +63,6 @@ interface FoodRepository {
     fun getCategories(): Flow<Resource<List<CategoriesItem?>?>>
 
     fun getMealsByCategory(category: String): Flow<Resource<List<ListFood?>>>
+
+    fun getMealsDetailById(id: String): Flow<Resource<List<DetailFood?>>>
 }
